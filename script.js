@@ -1,4 +1,4 @@
-const { userInfo } = require("os");
+// const { userInfo } = require("os");
 const readline = require("readline");
 const rl = readline.createInterface({
   input: process.stdin,
@@ -59,7 +59,7 @@ alphabet = [
   "z",
 ];
 
-function decoder() {
+function encoder() {
   let changedInput = [];
   let result = "";
   rl.question("Please enter your sentence: ", (userInput) => {
@@ -77,8 +77,22 @@ function decoder() {
       }
       result = changedInput.map((c) => (c === "" ? " " : c)).join("");
       console.log(result);
-      rl.close();
+      rl.question(
+        "Do you want to encode another phrase? (yes/no)",
+        (answer) => {
+          if (
+            (!answer.toLocaleLowerCase() == "" &&
+              answer.toLocaleLowerCase() == "yes") ||
+            answer.toLocaleLowerCase() == "y"
+          ) {
+            encoder();
+          } else {
+            console.log("Bye :))");
+            rl.close();
+          }
+        }
+      );
     });
   });
 }
-decoder();
+encoder();
